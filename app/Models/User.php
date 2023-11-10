@@ -27,6 +27,10 @@ class User extends Authenticatable
         return this -> hasMany(Review::class);
     }
 
+    public function rooms() {
+        return this -> hasMany(Room::class);
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

@@ -32,7 +32,7 @@ class PlaceController extends Controller
 
     //Ini untuk show
     public function show($id) {
-        $place = Place::find($id);
+        $place = Place::with('reviews')->find($id);
         if($place) {
             return response() -> json(['success' => true, 'data' => $place]);
         }
@@ -41,6 +41,7 @@ class PlaceController extends Controller
         }
     }
 
+    //Ini untuk update
     public function update(Request $request, $id) {
         $place = Place::find($id);
         if($place) {

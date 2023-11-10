@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Room;
 
 class RoomController extends Controller
 {
@@ -10,9 +11,11 @@ class RoomController extends Controller
     public function store(Request $request) {
         $room = new Room();
         $room -> name = $request -> name;
-        $room -> user = $request -> user;
         $room -> is_used = $request -> is_used;
-        if($room -> saved()) {
+        $room -> pic_url = $request -> pic_url;
+        $room -> price = $request -> price;
+        $room -> place_id = $request -> place_id;
+        if($room -> save()) {
             return response() -> json(['success' => true, 'data' => $room]);
         }
         else {
@@ -22,14 +25,23 @@ class RoomController extends Controller
 
     //Ini untuk index
     public function index() {
-        return response() -> json(['success' => true, 'data' => $room]);
+        $rooms = Room::get();
+        return response() -> json(['success' => true, 'data' => $rooms]);
+    }
+
+    //Ini untuk show
+    public function show($id) {
+        $room = Room::find($id);
+        if($room) {
+            return response() -> json(['success' => true, 'data' => $room]);
+        }
     }
 
     //Ini untuk delete
     public function destroy($id) {
-        $place = Place::find($id);
-        if($place) {
-            if($place -> delete()) {
+        $room = Place::find($id);
+        if($room) {
+            if($room -> delete()) {
                 return response() -> json(['success' => true, 'data' => 'data deleted']);
             }
             else {

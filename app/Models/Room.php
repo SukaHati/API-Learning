@@ -11,11 +11,13 @@ class Room extends Model
 
     protected $fillable = [
         'name',
-        'user',
-        'is_used'
-    ]
+        'is_used',
+        'pic_url',
+        'price'
+    ];
 
     public function place() {
-        return this -> belongsTo(Place::class);
+        return this -> belongsTo(Room::class);
     }
+
 }

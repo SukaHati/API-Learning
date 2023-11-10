@@ -19,10 +19,14 @@ class Place extends Model
     ];
 
     public function reviews() {
-        return $this -> hasMany(Review::class);
+        return $this->hasMany(Review::class);
     }
 
     public function facilities() {
         return $this -> belongsToMany(Facility::class);
+    }
+
+    public function rooms() {
+        return $this -> hasMany(Room::class);
     }
 }
