@@ -3,7 +3,7 @@
 use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\FacilityController;
-use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\PassportAuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -57,3 +57,6 @@ Route::delete('/facility/{id}', [FacilityController::class, 'destroy']);
 
 Route::post('/places/{id}/reviews', [ReviewController::class, 'store']);
 Route::get('/places/{id}/reviews', [ReviewController::class, 'index']);
+
+Route::post('/register', [PassportAuthController::class, 'register']);
+Route::post('/login', [PassportAuthController::class, 'login']);
