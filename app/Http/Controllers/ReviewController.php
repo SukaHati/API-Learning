@@ -11,7 +11,7 @@ class ReviewController extends Controller
         $review = new Review();
         $review -> rating = $request -> rating;
         $review -> comment = $request -> comment;
-        $review -> user_id = $request -> user_id;
+        $review->user_id = auth()->user()->id;
         $review -> place_id = $id;
         if($review -> save()) {
             return response() -> json(["success" => true, "data" => $review]);

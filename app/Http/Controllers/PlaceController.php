@@ -32,7 +32,7 @@ class PlaceController extends Controller
 
     //Ini untuk show
     public function show($id) {
-        $place = Place::with('reviews')->find($id);
+        $place = Place::with('reviews')->with('reviews.user')->find($id);
         if($place) {
             return response() -> json(['success' => true, 'data' => $place]);
         }

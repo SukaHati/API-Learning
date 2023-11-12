@@ -4,6 +4,7 @@ use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\PassportAuthController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -36,27 +37,30 @@ Route::post('/info', function (Request $request) {
 });
 
 //Create
-Route::post('/places', [PlaceController::class, 'store']);
-Route::post('/facility', [FacilityController::class, 'store']);
-Route::post('/rooms', [RoomController::class, 'store']);
-
-//Read
-Route::get('/places', [PlaceController::class, 'index']);
-Route::get('/places/{id}', [PlaceController::class, 'show']);
-Route::get('/facility', [FacilityController::class, 'index']);
-Route::get('/facility/{id}', [FacilityController::class, 'show']);
-Route::get('/rooms', [RoomController::class, 'index']);
-
-//Update
-Route::put('/places/{id}', [PlaceController::class, 'update']);
-Route::put('/facility/{id}', [FacilityController::class, 'update']);
-
-//Delete
-Route::delete('/places/{id}', [PlaceController::class, 'destroy']);
-Route::delete('/facility/{id}', [FacilityController::class, 'destroy']);
-
-Route::post('/places/{id}/reviews', [ReviewController::class, 'store']);
-Route::get('/places/{id}/reviews', [ReviewController::class, 'index']);
 
 Route::post('/register', [PassportAuthController::class, 'register']);
 Route::post('/login', [PassportAuthController::class, 'login']);
+
+Route::middleware('jwt.auth') -> group(function() {
+    Route::post('/places', [PlaceController::class, 'store']);
+    Route::post('/facility', [FacilityController::class, 'store']);
+    Route::post('/rooms', [RoomController::class, 'store']);
+    
+    //Read
+    Route::get('/places', [PlaceController::class, 'index']);
+    Route::get('/places/{id}', [PlaceController::class, 'show']);
+    Route::get('/facility', [FacilityController::class, 'index']);
+    Route::get('/facility/{id}', [FacilityController::class, 'show']);
+    Route::get('/rooms', [RoomController::class, 'index']);
+    
+    //Update
+    Route::put('/places/{id}', [PlaceController::class, 'update']);
+    Route::put('/facility/{id}', [FacilityController::class, 'update']);
+    
+    //Delete
+    Route::delete('/places/{id}', [PlaceController::class, 'destroy']);
+    Route::delete('/facility/{id}', [FacilityController::class, 'destroy']);
+    
+    Route::post('/places/{id}/reviews', [ReviewController::class, 'store']);
+    Route::get('/places/{id}/reviews', [ReviewController::class, 'index']);
+});

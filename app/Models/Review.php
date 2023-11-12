@@ -15,10 +15,10 @@ class Review extends Model
     ];
 
     public function place() {
-        return this -> belongsTo(Review::class);
+        return $this -> belongsTo(Review::class);
     }
 
     public function user() {
-        return this -> belongsTo(User::class);
+        return $this -> belongsTo(User::class);
     }
 }
